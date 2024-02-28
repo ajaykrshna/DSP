@@ -1,0 +1,111 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{lipsum} % for generating dummy text
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+
+% Page setup
+\geometry{a4paper, margin=1in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+
+% Title setup
+\title{\textbf{DSP LAB - LAB 3}}
+\author{Ajay Krishnan K \\ EE22BTECH11003}
+\date{\today}
+
+
+% Section and subsection formatting
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Code listing settings
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!40!black},
+    stringstyle=\color{red},
+    % numbers=left,
+    % numberstyle=\tiny,
+    frame=single,
+    showspaces=false,
+    showstringspaces=false,
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+\maketitle
+
+\section{Fixed Point Arithmetic}
+
+\subsection{MATLAB CODE}
+
+\begin{lstlisting}
+    % Fixed point arithmetic
+
+    float_num1 = 3.1425;
+    float_num2 = 4.2357;
+    float_sum = float_num1 + float_num2;
+    float_prod = float_num1 * float_num2;
+
+    q_format = 2^12;
+    fixed_num1 = fix(float_num1 * q_format);
+    fixed_num2 = fix(float_num2 * q_format);
+
+    fixed_sum = (fixed_num1  + fixed_num2 )/ q_format;
+    fixed_prod = (fixed_num1  * fixed_num2 )/ q_format^2;
+
+
+    disp('Floating-point sum:');
+    disp(float_sum);
+
+    disp('Fixed-point sum:');
+    disp(fixed_sum);
+
+    error_sum = abs(float_sum - fixed_sum);
+    disp(['Error sum: ', num2str(error_sum)]);  
+
+    disp('Floating-point prod:');
+    disp(float_prod);
+
+    disp('Fixed-point prod:');
+    disp(fixed_prod);
+
+    error_prod = abs(float_prod - fixed_prod);
+    disp(['Error Prod: ', num2str(error_prod)]);
+
+\end{lstlisting}
+
+\subsection{Output}
+
+\begin{lstlisting}
+    Floating-point sum:
+        7.3782
+
+    Fixed-point sum:
+        7.3779
+
+    Error sum: 0.00027031
+    Floating-point prod:
+        13.3107
+
+    Fixed-point prod:
+        13.3097
+
+    Error Prod: 0.0010309
+\end{lstlisting}
+
+\end{document}

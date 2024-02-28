@@ -1,0 +1,98 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{lipsum} % for generating dummy text
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+
+% Page setup
+\geometry{a4paper, margin=1in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+
+% Title setup
+\title{\textbf{DSP LAB - LAB 3 in C}}
+\author{Ajay Krishnan K \\ EE22BTECH11003}
+\date{\today}
+
+
+% Section and subsection formatting
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Code listing settings
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!40!black},
+    stringstyle=\color{red},
+    % numbers=left,
+    % numberstyle=\tiny,
+    frame=single,
+    showspaces=false,
+    showstringspaces=false,
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+\maketitle
+
+\section{Fixed Point Arithmetic}
+
+\subsection{C CODE}
+
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+    #include <math.h>
+
+    int main()
+    {
+        float float_num1 = 3.1425;
+        float float_num2 = 4.2357;
+        float float_result_add = float_num1 + float_num2;
+
+        int q_format = pow(2, 12);
+        int fixed_num1 = (int)(float_num1 * q_format);
+        int fixed_num2 = (int)(float_num2 * q_format);
+
+        float fixed_result_add = floor(fixed_num1 + fixed_num2) / q_format;
+
+        printf("Floating-point addition result: %f\n", float_result_add);
+        printf("Fixed-point addition result: %f\n", fixed_result_add);
+        printf("Addition Error: %f\n", fabs(float_result_add - fixed_result_add));
+
+        float fixed_result_multiply = floor(fixed_num1 * fixed_num2) / pow(q_format, 2);
+
+        float float_result_multiply = float_num1 * float_num2;
+        printf("Floating-point multiplication result: %f\n", float_result_multiply);
+        printf("Fixed-point multiplication result: %f\n", fixed_result_multiply);
+        printf("Multiplication Error: %f\n", fabs(float_result_multiply - fixed_result_multiply));
+
+        return 0;
+    }
+\end{lstlisting}
+
+\subsection{Output}
+
+\begin{lstlisting}
+    Floating-point addition result: 7.378200
+    Fixed-point addition result: 7.377930
+    Addition Error: 0.000270
+    Floating-point multiplication result: 13.310687
+    Fixed-point multiplication result: 13.309656
+    Multiplication Error: 0.001031
+\end{lstlisting}
+
+\end{document}
