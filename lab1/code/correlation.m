@@ -4,11 +4,11 @@ clc
 clear
 close all
 
-a = input('Enter the signal: ');
-b = input('Enter the seconfd signal: ');
+% a = input('Enter the signal: ');
+% b = input('Enter the seconfd signal: ');
 
-% a = [1 2 3];
-% b = [4 5 6];
+a = [1 2 3];
+b = [4 5 6];
 
 correlation_val = correlation_taker(a,b);
 disp(correlation_val)
