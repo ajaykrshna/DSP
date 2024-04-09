@@ -1,0 +1,11 @@
+[d,r] = audioread('msmn1.wav');
+soundsc(d,r);
+figure(1);
+specgram(d,1024,r);
+pause(5);
+[b,a] = ellip(8,1,50,5000/(r/2),'high');
+df = filter(b,a,d);
+figure(2);
+specgram(df,1024,r);
+soundsc(df,r);
+% audiowrite("/home/ajaykrshna/Desktop/Projects/MATLAB/DSP/lab7/tmp.wav",df,r);
