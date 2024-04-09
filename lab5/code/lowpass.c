@@ -25,7 +25,7 @@ void LPF(float fc, float fs, float h[]) {
 }
 
 int main() {
-    float fs = 6000;   
+    float fs = 1600;   
     float fc = 400;
     float h[N];
 
