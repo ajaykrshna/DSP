@@ -1,0 +1,145 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}                                                                                                                                                            
+\usepackage{xcolor}
+
+% Page setup
+\geometry{a4paper, margin=1in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Title setup
+\title{\textbf{DSP LAB - Experiment 8} \\
+        \vspace*{0.3em}
+        \large{Interpolation and Decimation} \\}                                              
+\author{Ajay Krishnan K \\  EE22BTECH11003}
+\date{\today}
+
+% Section and subsection formatting
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Code listing settings
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!40!black},
+    stringstyle=\color{red},
+    % numbers=left,
+    % numberstyle=\tiny,
+    frame=single,
+    showspaces=false,
+    showstringspaces=false,
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+\maketitle
+
+% o Aim of the experiment
+% o Theory of Interpolator and Decimator.
+% o How filter cutoff frequencies are decided in
+% Interpolation and decimation.
+% o Matlab code and mean of absolute error.
+% o Observation and conclusion.
+
+\section*{Aim}
+To implement interpolation and decimation of a given signal and 
+calculate the mean of absolute error between the original signal and the decimated signal.
+
+\section*{Theory}
+\subsection*{Interpolation}
+Interpolation is the process of increasing the sampling rate of a signal. 
+This is done by inserting zeros between the samples of the signal and then applying a 
+low-pass filter to remove the high frequency components introduced by the zero padding.
+
+\subsection*{Decimation}
+Decimation is the process of decreasing the sampling rate of a signal.
+This is done by initially passing the signal through a low-pass filter to 
+remove the high frequency components and then removing samples from the signal.
+
+\section*{Procedure}
+\begin{enumerate}
+    \item Generate a signal $x[n] = \sin(2\pi f_1 n) + \sin(2\pi f_2 n) + \sin(2\pi f_3 n)$ where $f_1 = 500$, $f_2 = 1000$ and $f_3 = 700$.
+    \item Interpolate the signal by a factor of $L = 2$.
+    \item Decimate the interpolated signal by a factor of $M = 2$.
+    \item Observe the effect of interpolation and decimation on the signal.
+\end{enumerate}
+
+\section*{Design}
+\subsection*{Interpolation}
+The interpolation of a signal is done by inserting zeros between the samples of the signal.
+The interpolated signal is then passed through a low-pass filter to remove the high frequency components introduced by the zero padding.
+
+The cutoff frequency of the low-pass filter is given by
+\begin{align*}
+    w_c = \frac{\pi}{L}
+\end{align*}
+where $f_s$ is the sampling frequency of the signal and $L$ is the interpolation factor.
+
+Since the signal is being interpolated by a factor of L, the sampling frequency of the signal is also increased by a factor of L.
+Thus, the equation.
+
+A gain of L is applied to the output of the low-pass filter to compensate for the loss of energy due to the zero padding.
+
+\subsection*{Decimation}
+The decimation of a signal is done by removing samples from the signal.
+The decimated signal is then passed through a low-pass filter to remove the high frequency components introduced by the decimation.
+
+The cutoff frequency of the low-pass filter is given by
+\begin{align*}
+    w_c = \frac{\pi}{M}
+\end{align*}
+where $f_s$ is the sampling frequency of the signal and $M$ is the decimation factor.
+
+Since the signal is being decimated by a factor of M, the sampling frequency of the signal is also decreased by a factor of M.
+Thus, the equation.
+
+\section*{Matlab Code}
+Code for the LPF is given below.
+\lstinputlisting[language=Matlab]{../code/LPF.m}
+
+Code for the downSampler is given below.
+\lstinputlisting[language=Matlab]{../code/downSample.m}
+
+Code for the upSampler is given below.
+\lstinputlisting[language=Matlab]{../code/upSample.m}
+
+Code for Convolution is given below.
+\lstinputlisting[language=Matlab]{../code/convol.m}
+
+Code for Interpolation and Decimation is given below.
+\lstinputlisting[language=Matlab]{../code/interDecim.m}
+
+\section*{Observations}
+\begin{itemize}
+    \item The mean of absolute error between the original signal and the decimated signal is \textbf{0.0044}.
+    \item This shows that the decimated signal is an almost perfect representation of the original signal.
+    \item The interpolated signal has a higher sampling rate than the original signal.
+    \item The decimated signal has a lower sampling rate than the original signal.
+    \item The Low Pass Filter used for interpolation and decimation removes the high frequency components introduced by the zero padding and the decimation respectively.
+    \item Gain in the LPF compensates for the loss of energy due to zero padding.
+\end{itemize}
+
+\section*{Conclusion}
+Interpolation increases signal sampling rates for improved fidelity, while decimation reduces data rates to conserve bandwidth.
+Even though the mean absolute error between the original signal and 
+the decimated signal is small, the decimated signal is an almost perfect 
+representation of the original signal.
+They are used for enhancing audio quality to optimizing data transmission in wireless 
+networks, emphasizing the importance of these techniques in modern signal processing.
+
+\end{document}
